@@ -17,8 +17,40 @@ Modify your function to allocate space for the trimmed string! What is the diffe
 
 
 #include <stdio.h>
+#include <string.h>
 
-int main(){
+char* trimString(char str[], char trim[]){
 
-return 0;
+    int first_position = 0;
+    while (str[first_position] == ' '){
+        first_position++;
+    }
+
+    int len = 0;
+    for(int j = 0; str[j] != '\0'; j++){
+        len++;
+    }
+
+    int last_position = len-1;
+    while (str[last_position] == ' '){
+        last_position--;
+    }
+
+    int len_trim = 0;
+    for(int i=first_position; i<=last_position; i++){
+        trim[len_trim++] = str[i];
+    }
+    trim[len_trim] = '\0';
+
+    return trim;
+}
+
+
+int main(void){
+    char str[] = " Hello world!   ";
+    char trim[100];
+    trimString(str, trim);
+    printf("The new string: %s\n", trim);
+
+    return 0;
 }

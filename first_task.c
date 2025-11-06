@@ -13,8 +13,17 @@ You can assume that the word is never longer than 99 characters.
 
 #include <stdio.h>
 
-int main(){
+int main(void){
 
+  char str[100];
+
+  printf("Enter a word(max length is 99)!\n");
+  scanf("%s", str);
+
+  for (int i= 0; str[i] != '\0'; i++){
+    printf("%c", str[i]);
+    printf("\n");
+  }
 
   return 0;
 }

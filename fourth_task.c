@@ -17,9 +17,24 @@ Detecting and handling the end of file properly is often a critical issue in a f
 
 
 #include <stdio.h>
+#include <ctype.h>
 
-int main(){
+int main(void){
+  FILE *in;
+  FILE *out;
+  in = fopen("lorem.txt", "r");
+  out = fopen("output.txt", "w");
 
-
+  if (in == NULL || out == NULL){
+    printf("Error in opening files\n");
+    return 1;
+  }
+  char c;
+  while ((c = fgetc(in))!= EOF){
+    fputc (toupper(c), out);
+  }
+  fclose(in);
+  fclose(out);
+  
   return 0;
 }
