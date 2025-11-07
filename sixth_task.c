@@ -30,19 +30,34 @@ typedef struct {
     int id;
     char name[101];
     char descr[201];
-    int status;
+    int status; //1 or 0
 } job;
+
+void prinJoe(job x){
+    if (x.name == "Joe"){
+        printf("%s\n", x.descr);
+    }
+}
+
+void changeJoeStatus(job x){
+    if(x.name == "Joe"){
+        x.status = 1;
+    }
+}
 
 int main () {
     FILE* infile;   // file handle
+    FILE* outfile;
     job* a;         // start address of the dynamic array    
     int N;          // number of elements in the dynamic array
     int i;          // auxiliary variable for loops
     
     // open file
     infile = fopen("jobs.txt","r");
-    if (infile==NULL) {
-        printf("Cannot open jobs.txt\n");
+    outfile = fopen("jobs2.txt", "w");
+
+    if (infile==NULL || outfile == NULL) {
+        printf("Cannot open jobs.txt or jobs2.txt\n");
         return 1;
     }
     
@@ -56,8 +71,17 @@ int main () {
         fgets(a[i].descr, 201, infile);        
         a[i].descr[strlen(a[i].descr)-1] = '\0';
         fscanf(infile, "%d\n", &a[i].status);
+        changeJoeStatus(a[i]);
+        prinJoe(a[i]);
     }
+
+    char c;
+    while ((c = fgetc(infile))!= EOF){
+        fputc (toupper(c), outfile);
+    }
+
     fclose(infile);
+    fclose(outfile);
  
     free(a);
     return 0;
